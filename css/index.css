@@ -1170,7 +1170,7 @@ body {
 
 @font-face {
   font-family: "Neka Laurent";
-  src: url("fonts/Neka\ Laurent\ \(Demo_Font\).ttf") format("truetype");
+  src: url("../fonts/Neka\ Laurent\ \(Demo_Font\).ttf") format("truetype");
 }
 
 #intro-container {
@@ -1431,4 +1431,5 @@ label[for="volume"] {
   flex-direction: column; /* susun vertikal */
   align-items: center; /* center horizontal */
 }
+
 
