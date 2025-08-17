@@ -93,7 +93,7 @@ body {
   min-height: 60vh;
   display: flex;
   align-items: center;
-  background-image: url("/img/merem.jpg");
+  background-image: url("img/merem.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1960,3 +1960,4 @@ footer .credit a {
     font-size: 45%;
   }
 }
+
