@@ -1855,6 +1855,8 @@ footer .credit a {
   font-family: Poppins;
   width: 100%;
   height: 100vh;
+  height: 100dvh; /* untuk browser modern */
+  min-height: -webkit-fill-available; /* fallback iOS Safari */
   position: fixed; /* nempel di viewport, bukan ikut scroll */
   top: 0;
   left: 0;
@@ -1911,7 +1913,7 @@ footer .credit a {
 /* carousel */
 #airpods-app .carousel {
   position: relative;
-  height: 800px;
+  height: 100vh; /* full tinggi layar */
   overflow: hidden;
   margin-top: -50px;
 }
@@ -2336,6 +2338,7 @@ footer .credit a {
     float: right;
   }
 }
+
 .hidden {
   display: none !important;
 }
