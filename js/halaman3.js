@@ -49,8 +49,8 @@ triggerIcon.addEventListener("click", (e) => {
   animContainer.classList.remove("not-loaded");
 
   const titles = "Happy Birthday Ale!".split("");
-  const titleElement = document.getElementById("title");
-  const titleWrapper = document.querySelector(".title"); // biar gampang
+  const titleElement = document.getElementById("teks");
+  const titleWrapper = document.querySelector(".teks"); // biar gampang
   titleElement.innerHTML = "";
   let index = 0;
 
@@ -92,4 +92,86 @@ triggerIcon.addEventListener("click", (e) => {
       { once: true }
     );
   }, totalTime);
+});
+
+let nextButton = document.getElementById("next");
+let prevButton = document.getElementById("prev");
+let carousel = document.querySelector(".carousel");
+let listHTML = document.querySelector(".carousel .list");
+let seeMoreButtons = document.querySelectorAll(".seeMore");
+let backButton = document.getElementById("back");
+
+nextButton.onclick = function () {
+  showSlider("next");
+};
+prevButton.onclick = function () {
+  showSlider("prev");
+};
+let unAcceppClick;
+const showSlider = (type) => {
+  nextButton.style.pointerEvents = "none";
+  prevButton.style.pointerEvents = "none";
+
+  carousel.classList.remove("next", "prev");
+  let items = document.querySelectorAll(".carousel .list .item");
+  if (type === "next") {
+    listHTML.appendChild(items[0]);
+    carousel.classList.add("next");
+  } else {
+    listHTML.prepend(items[items.length - 1]);
+    carousel.classList.add("prev");
+  }
+  clearTimeout(unAcceppClick);
+  unAcceppClick = setTimeout(() => {
+    nextButton.style.pointerEvents = "auto";
+    prevButton.style.pointerEvents = "auto";
+  }, 2000);
+};
+seeMoreButtons.forEach((button) => {
+  button.onclick = function () {
+    carousel.classList.remove("next", "prev");
+    carousel.classList.add("showDetail");
+  };
+});
+backButton.onclick = function () {
+  const airpodsApp = document.getElementById("airpods-app");
+  const mainContent = document.getElementById("main-content");
+
+  if (carousel.classList.contains("showDetail")) {
+    // kalau lagi lihat detail → balik ke slider
+    carousel.classList.remove("showDetail");
+  } else {
+    // kalau sudah di slider → keluar ke kanan
+    airpodsApp.classList.remove("slide-in-left"); // hapus animasi lama
+    airpodsApp.classList.add("slide-out-right");
+
+    airpodsApp.addEventListener(
+      "animationend",
+      function () {
+        airpodsApp.classList.add("hidden");
+        airpodsApp.classList.remove("slide-out-right"); // bersihkan animasi
+
+        // tampilkan isi web
+        mainContent.classList.remove("hidden");
+
+        // pastikan scroll aktif lagi
+        document.body.style.overflow = "auto";
+      },
+      { once: true }
+    );
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const airpodsApp = document.getElementById("airpods-app");
+  const cartIcon = document.getElementById("shopping-cart");
+
+  cartIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    airpodsApp.classList.remove("hidden", "slide-out-right"); // bersihkan sisa class keluar
+    airpodsApp.classList.add("slide-in-left"); // animasi masuk
+
+    document.body.style.overflow = "hidden"; // kunci scroll
+  });
 });
