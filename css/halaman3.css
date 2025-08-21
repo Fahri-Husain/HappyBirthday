@@ -27,6 +27,20 @@ body {
   overflow-x: hidden;
 }
 
+#airpods-app {
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: Poppins;
+  width: 100%;
+  height: 100dvh; /* dinamis, mengikuti layar penuh */
+  min-height: -webkit-fill-available; /* fallback Safari iOS */
+  position: fixed; /* nempel di viewport */
+  top: 0;
+  left: 0;
+  z-index: 9999; /* biar di atas semua */
+  overflow-y: auto; /* biar bisa scroll kalau konten panjang */
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -272,7 +286,7 @@ body {
 .slider {
   width: 100%;
   max-width: 2000px;
-  height: 250px;
+  height: 100vh;
   margin: auto;
   position: relative;
   overflow: hidden;
@@ -281,15 +295,17 @@ body {
 
 .slides {
   display: flex;
+  height: 100%; /* ✅ penting, biar anaknya ikut penuh */
   transition: transform 0.5s ease-in-out;
   touch-action: pan-y; /* Biar bisa geser tanpa gangguan */
 }
 
 .slides img {
   width: 100%;
-  height: 200%;
+  height: 100%;
   border-radius: 5em;
   object-fit: cover;
+  flex-shrink: 0; /* ✅ jangan mengecil */
 }
 
 .nav-button {
@@ -1850,20 +1866,6 @@ footer .credit a {
 
 /* Airpods */
 #airpods-app {
-  margin: 0;
-  background-color: #f4f4f4;
-  font-family: Poppins;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh; /* untuk browser modern */
-  min-height: -webkit-fill-available; /* fallback iOS Safari */
-  position: fixed; /* nempel di viewport, bukan ikut scroll */
-  top: 0;
-  left: 0;
-  z-index: 9999; /* biar di atas semua */
-  overflow-y: auto; /* kalau kontennya kepanjangan, scroll di dalam overlay */
-}
-#airpods-app {
   --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
   --item1-filter: blur(30px);
   --item1-zIndex: 11;
@@ -2306,7 +2308,9 @@ footer .credit a {
 @media screen and (max-width: 767px) {
   /* mobile */
   #airpods-app .carousel {
-    height: 600px;
+    height: 100vh; /* standar */
+    height: 100dvh; /* browser modern */
+    height: 100svh;
   }
   #airpods-app .carousel .list .item {
     width: 100%;
@@ -2500,6 +2504,62 @@ footer .credit a {
   .menu .row .content p {
     font-size: 1.6rem;
   }
+
+  .slider {
+    height: 60vh; /* ✅ biar nggak terlalu tinggi di HP */
+    padding-top: 2rem;
+  }
+
+  .slides img {
+    height: 100%; /* tetap isi penuh */
+    border-radius: 1rem;
+  }
+}
+
+/* Untuk layar besar (laptop/desktop) */
+@media screen and (min-width: 992px) {
+  .slider {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .slider .slides img {
+    width: 100%; /* supaya foto melebar penuh */
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* pastikan section about turun */
+  #about {
+    display: block;
+    margin-top: 20px;
+  }
+
+  /* hilangkan kemungkinan row flex side-by-side */
+  .about .row {
+    display: block;
+    margin: 0; /* hilangin auto margin */
+    padding: 0; /* biar full ke kiri-kanan */
+    width: 100%;
+    text-align: center;
+  }
+
+  .about .row .about-img img {
+    width: 100%; /* full kiri-kanan */
+    height: 900px; /* tinggi default di laptop */
+    object-fit: cover; /* biar crop rapi */
+    object-position: 50% 40%;
+    border-radius: 100px; /* tambahin lengkung biar sama kayak versi HP */
+    display: block; /* pastikan nggak ada inline space */
+  }
+
+  .about .row .content {
+    width: 100%;
+    margin: 20px 0 0;
+    padding: 0 10px; /* kasih sedikit padding biar teks gak nempel banget */
+    text-align: justify;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2518,5 +2578,9 @@ footer .credit a {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   html {
     font-size: 45%;
+  }
+
+  .slider {
+    height: 50vh; /* layar kecil lebih pendek */
   }
 }
